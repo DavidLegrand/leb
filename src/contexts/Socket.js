@@ -9,7 +9,6 @@ export const SocketProvider = ({ id, children }) => {
 
   useEffect(() => {
     const newSocket = io('http://localhost:8000', { query: { id } })
-    console.log(id)
     setSocket(newSocket)
     return () => newSocket.close()
   }, [id])

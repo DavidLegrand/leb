@@ -1,7 +1,6 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 
 import { Route, Switch } from "react-router-dom";
-import Loading from "components/shared/Loading";
 import PrivateRoute from "./PrivateRoute";
 
 const Login = lazy(() => import('components/pages/Login'))
@@ -12,15 +11,14 @@ const Messages = lazy(() => import('components/pages/Messages'))
 
 const Router = () => {
   return (
-    <Suspense fallback={<Loading />}>
-      <Switch>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={Register}></Route>
-        <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
-        <PrivateRoute path="/messages" exact component={Messages}></PrivateRoute>
-        <Route path="/*" exact component={NotFound}></Route>
-      </Switch>
-    </Suspense>
+
+    <Switch>
+      <Route path="/login" component={Login}></Route>
+      <Route path="/register" component={Register}></Route>
+      <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
+      <PrivateRoute path="/messages" exact component={Messages}></PrivateRoute>
+      <Route path="/*" exact component={NotFound}></Route>
+    </Switch>
   );
 };
 

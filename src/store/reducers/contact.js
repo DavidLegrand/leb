@@ -4,7 +4,6 @@ const contactInitialState = {
   error: null
 }
 
-
 const contactReducer = (state = contactInitialState, action) => {
   switch (action.type) {
     case 'CONTACT/ADD/SUCCESS':

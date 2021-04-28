@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Form, Modal, Row, Col, Button, FormGroup } from 'react-bootstrap'
 import { ConversationNew } from 'store/actions/conversation'
 import { connect } from 'react-redux'
-import Checkbox from "components/shared/Checkbox";
+
 
 const ConversationModal = ({ contacts, closeModal, ConversationNew }) => {
   const [participants, setParticipants] = useState([])

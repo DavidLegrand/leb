@@ -15,10 +15,12 @@ const Messages = ({ conversations, selectedConversation, ConversationNew, Conver
   useEffect(() => {
     if (socket == null) return
     socket.on('receive', ({ conversation, message }) => {
+      console.log("Ma conversation n'appartient pas à la liste ? ", !conversations.find(c => c.id === conversation.id))
       console.log(conversation, conversations)
-      if (!conversations.includes(conversation))
+      if (!conversations.find(c => c.id === conversation.id))
         ConversationNew({ ...conversation, messages: [message] })
-      ConversationMessage({ conversation, message })
+      else
+        ConversationMessage({ conversation, message })
     })
     return () => socket.off('receive')
   }, [socket, ConversationNew, ConversationMessage, conversations])

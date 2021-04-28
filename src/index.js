@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';
@@ -13,13 +13,16 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { SocketProvider } from 'contexts/Socket';
 
+import Loading from "components/shared/Loading";
 
 ReactDOM.render(
   <Router>
     <SocketProvider>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <App />
+          <Suspense fallback={<Loading />}>
+            <App />
+          </Suspense>
         </PersistGate>
       </Provider>
     </SocketProvider>

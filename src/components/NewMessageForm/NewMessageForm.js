@@ -7,28 +7,23 @@ import { connect } from 'react-redux'
 import { useSocket } from 'contexts/Socket'
 
 const NewMessageForm = ({ user, ConversationMessage, conversation }) => {
-  const [message, setMessage] = useState('')
+  const [messageText, setMessageText] = useState('')
 
   const socket = useSocket()
   const handleSubmit = e => {
     e.preventDefault()
-    ConversationMessage({
-      conversation,
-      message: { date: new Date(), text: message, sender: { id: user.id, login: user.login } },
-    })
-    socket.emit('send', {
-      conversation,
-      message: { date: new Date(), text: message, sender: { id: user.id, login: user.login } }
-    })
-    setMessage('')
+    const message = { date: new Date(), text: messageText, sender: { id: user.id, login: user.login } }
+    ConversationMessage({ conversation, message })
+    socket.emit('send', { conversation, message })
+    setMessageText('')
   }
   return <Form onSubmit={handleSubmit}>
     <Form.Group className="m-0">
       <InputGroup>
         <Form.Control
           required
-          value={message}
-          onChange={e => setMessage(e.target.value)}
+          value={messageText}
+          onChange={e => setMessageText(e.target.value)}
 
         />
         <InputGroup.Append>

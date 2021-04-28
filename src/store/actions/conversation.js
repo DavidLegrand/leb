@@ -5,14 +5,14 @@ export const ConversationNewSuccess = payload => ({ type: 'CONVERSATION/NEW/SUCC
 export const ConversationNewFailure = error => ({ type: 'CONVERSATION/NEW/FAILURE', payload: { error } })
 export const ConversationNewStarted = () => ({ type: 'CONVERSATION/NEW/STARTED' })
 
-export const ConversationNew = (conversation, ...params) => {
+export const ConversationNew = ({ participants, messages, id }) => {
   return async (dispatch, getState) => {
     dispatch(ConversationNewStarted())
     try {
-      if (!conversation.id)
-        conversation.id = uuidV4()
-      dispatch(ConversationNewSuccess(conversation))
-      console.log(conversation)
+      if (!id)
+        id = uuidV4()
+      dispatch(ConversationNewSuccess({ participants, messages, id }))
+      console.log({ participants, messages, id })
     } catch (error) {
       dispatch(ConversationNewFailure(error.message))
     }
@@ -39,12 +39,12 @@ export const ConversationMessageSuccess = payload => ({ type: 'CONVERSATION/MESS
 export const ConversationMessageFailure = error => ({ type: 'CONVERSATION/MESSAGE/FAILURE', payload: { error } })
 export const ConversationMessageStarted = () => ({ type: 'CONVERSATION/MESSAGE/STARTED' })
 
+
 export const ConversationMessage = ({ conversation, message }) => {
 
   return async (dispatch, getState) => {
     dispatch(ConversationMessageStarted())
     try {
-      // const res = await fetch(params.url)
 
       dispatch(ConversationMessageSuccess({ id: conversation.id, message }))
     } catch (error) {

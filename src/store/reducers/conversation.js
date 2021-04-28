@@ -21,7 +21,11 @@ const conversationReducer = (state = conversationInitialState, action) => {
     case 'CONVERSATION/SELECT/STARTED':
       return { ...state, loading: true, error: null }
     case 'CONVERSATION/MESSAGE/SUCCESS':
-      var list = state.list.map(c => c.id === action.payload.id ? { ...c, messages: [...c.messages, action.payload.message] } : c)
+      var list = state.list.map(c =>
+        c.id === action.payload.id ?
+          { ...c, messages: [...c.messages, action.payload.message] } :
+          c
+      )
       return { ...state, loading: false, error: null, list }
     case 'CONVERSATION/MESSAGE/FAILURE':
       return { ...state, loading: false, error: action.payload.error }
